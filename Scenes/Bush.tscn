@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/png/towerDefense_tile130.png" type="Texture" id=1]
+[ext_resource path="res://Bush.cs" type="Script" id=2]
+
+[node name="Bush" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
