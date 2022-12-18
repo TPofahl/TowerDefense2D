@@ -11,14 +11,13 @@ config_version=4
 [application]
 
 config/name="2D-TowerDefense"
-run/main_scene="res://Scenes/Main.tscn"
+run/main_scene="res://Scenes/Level1.tscn"
 config/icon="res://icon.png"
 
 [display]
 
 window/size/width=1920
 window/size/height=1080
-window/size/fullscreen=true
 
 [gui]
 

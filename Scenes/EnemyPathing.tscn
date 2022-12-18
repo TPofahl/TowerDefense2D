@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://EnemyPathing.cs" type="Script" id=3]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, -64, 544, 0, 0, 0, 0, 352, 544, 0, 0, 0, 0, 352, 224, 0, 0, 0, 0, 608, 224, 0, 0, 0, 0, 608, 544, 0, 0, 0, 0, 800, 544, 0, 0, 0, 0, 800, 864, 0, 0, 0, 0, 1056, 864, 0, 0, 0, 0, 1056, 224, 0, 0, 0, 0, 1696, 224, 0, 0, 0, 0, 1696, 544, 0, 0, 0, 0, 1376, 544, 0, 0, 0, 0, 1376, 864, 0, 0, 0, 0, 1984, 864 )
+}
+
+[node name="EnemyPathing" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="EnemyLine" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="EnemyPath" type="PathFollow2D" parent="EnemyLine"]
+position = Vector2( -64, 544 )
+loop = false
+
+[node name="Enemy" parent="EnemyLine/EnemyPath" instance=ExtResource( 1 )]
+scale = Vector2( 2, 2 )
