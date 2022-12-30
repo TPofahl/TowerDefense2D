@@ -23,6 +23,12 @@ window/size/height=1080
 
 common/drop_mouse_on_gui_input_disabled=true
 
+[layer_names]
+
+2d_physics/layer_1="Enviroment"
+2d_physics/layer_2="Enemies"
+2d_physics/layer_3="Turrets"
+
 [mono]
 
 project/assembly_name="2D-TowerDefense"
