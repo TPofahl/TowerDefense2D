@@ -10,7 +10,6 @@ _data = {
 
 [node name="EnemyPathing" type="Node2D"]
 script = ExtResource( 3 )
-EnemySpeed = 1000
 
 [node name="EnemyLine" type="Path2D" parent="."]
 curve = SubResource( 1 )

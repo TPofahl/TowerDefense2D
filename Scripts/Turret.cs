@@ -7,6 +7,7 @@ public class Turret : Node2D
 	public Area2D turretRange;
 	public Sprite turretSprite;
 	public Timer reloadTimer;
+	PackedScene bulletScene = GD.Load<PackedScene>("res://Scenes/Bullet.tscn");
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -14,6 +15,7 @@ public class Turret : Node2D
 		turretRange = GetNode<Area2D>("Area2D");
 		turretSprite = GetNode<Sprite>("Sprite");
 		reloadTimer = GetNode<Timer>("Area2D/TurretDetectionArea/ReloadTimer");
+		reloadTimer.Start();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,6 +25,7 @@ public class Turret : Node2D
 		{
 			var angleToTarget = GlobalPosition.DirectionTo(target.GlobalPosition).Angle();
 			turretSprite.Rotation = angleToTarget;
+			if (reloadTimer.IsStopped()) Shoot();
 		}
 	}
 
@@ -39,10 +42,6 @@ public class Turret : Node2D
 			target = null;
 			AssignTarget();
 		} 
-		else
-		{
-			Shoot();
-		}
 	}
 
 	private void AssignTarget() 
@@ -54,6 +53,10 @@ public class Turret : Node2D
 
 	private void Shoot()
 	{
-		if ()
+		Area2D bullet = (Area2D)bulletScene.Instance();
+		bullet.GlobalPosition = GlobalPosition;
+		bullet.GlobalRotation = turretSprite.Rotation;
+		GetTree().CurrentScene.AddChild(bullet);
+		reloadTimer.Start();
 	}
 }
