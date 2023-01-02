@@ -6,6 +6,7 @@ public class Turret : Node2D
 	public Node2D target;
 	public Area2D turretRange;
 	public Sprite turretSprite;
+	public int turretSpriteRadius = 40;
 	public Timer reloadTimer;
 	PackedScene bulletScene = GD.Load<PackedScene>("res://Scenes/Bullet.tscn");
 
@@ -54,7 +55,8 @@ public class Turret : Node2D
 	private void Shoot()
 	{
 		Area2D bullet = (Area2D)bulletScene.Instance();
-		bullet.GlobalPosition = GlobalPosition;
+		Vector2 endOfTurret = new Vector2((float)Math.Cos(turretSprite.Rotation), (float)Math.Sin(turretSprite.Rotation));
+		bullet.GlobalPosition = GlobalPosition + endOfTurret * turretSpriteRadius;
 		bullet.GlobalRotation = turretSprite.Rotation;
 		GetTree().CurrentScene.AddChild(bullet);
 		reloadTimer.Start();
