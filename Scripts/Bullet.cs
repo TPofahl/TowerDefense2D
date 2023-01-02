@@ -4,7 +4,7 @@ using System;
 public class Bullet : Area2D
 {
     [Export]
-    int bulletSpeed = 200;
+    int bulletSpeed = 550;
     Vector2 rotation = Vector2.Right;
 
     // Called when the node enters the scene tree for the first time.
@@ -23,5 +23,13 @@ public class Bullet : Area2D
     private void OnVisibilityNotifier2DScreenExited()
     {
         QueueFree();
+    }
+
+    private void OnBulletBodyEntered(Node body)
+    {
+        if (body.IsInGroup("EnemyGroup"))
+        {
+        QueueFree();
+        }
     }
 }
