@@ -25,7 +25,7 @@ public class Bullet : Area2D
         QueueFree();
     }
 
-    private void OnBulletBodyEntered(Node body)
+    private void OnBulletAreaEntered(Node body)
     {
         if (body.IsInGroup("EnemyGroup"))
         {

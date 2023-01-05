@@ -22,11 +22,16 @@ public class Turret : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(float delta)
 	{
-		if (target != null)
+		if (target != null && IsInstanceValid(target))
 		{
 			var angleToTarget = GlobalPosition.DirectionTo(target.GlobalPosition).Angle();
 			turretSprite.Rotation = angleToTarget;
 			if (reloadTimer.IsStopped()) Shoot();
+		}
+		else
+		{
+			target = null;
+			AssignTarget();
 		}
 	}
 
@@ -50,6 +55,7 @@ public class Turret : Node2D
 		if (target != null) return;
 		var targets = turretRange.GetOverlappingAreas();
 		if (targets.Count != 0) target = (Node2D)targets[0];
+		if (IsInstanceValid(target)) target.Connect("EnemyDestroyed", this, "OnEnemyDestroyed");
 	}
 
 	private void Shoot()
@@ -60,5 +66,11 @@ public class Turret : Node2D
 		bullet.GlobalRotation = turretSprite.Rotation;
 		GetTree().CurrentScene.AddChild(bullet);
 		reloadTimer.Start();
+	}
+
+	public void OnEnemyDestroyed()
+	{
+		target.Disconnect("EnemyDestroyed", this, "OnEnemyDestroyed");
+		target = null;
 	}
 }
