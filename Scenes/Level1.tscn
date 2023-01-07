@@ -1013,12 +1013,10 @@ position = Vector2( 1760, 736 )
 [node name="SingleCannon3" parent="Background/Foreground" instance=ExtResource( 2 )]
 position = Vector2( 1568, 96 )
 collision_mask = 2
-gravity_scale = 0.0
 
 [node name="SingleCannon2" parent="Background/Foreground" instance=ExtResource( 2 )]
 position = Vector2( 480, 352 )
 collision_mask = 2
-gravity_scale = 0.0
 
 [node name="SingleCannon" parent="Background/Foreground" instance=ExtResource( 2 )]
 position = Vector2( 480, 480 )

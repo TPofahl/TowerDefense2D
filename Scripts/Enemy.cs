@@ -6,7 +6,7 @@ public class Enemy : Area2D
     [Signal]
     delegate void EnemyDestroyed();
     [Export]
-    public int health = 100;
+    public int health = 500;
     [Export]
     public Vector2 healthBarOffset = new Vector2(-25,35);
     TextureProgress healthTexture;
@@ -17,7 +17,7 @@ public class Enemy : Area2D
         healthTexture = GetNode<TextureProgress>("HealthBar/TextureProgress");
         healthBar = GetNode<Node2D>("HealthBar");
         healthTexture.Value = health;
-
+        healthTexture.Visible = false;
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -33,8 +33,12 @@ public class Enemy : Area2D
         if (body.IsInGroup("BulletGroup"))
         {
             health -= 10;
+            healthTexture.Visible = true;
             healthTexture.Value = health;
-            if (health <= 0) EmitSignal(nameof(EnemyDestroyed));
+            if (IsInstanceValid(healthBar))
+            {
+                if (health <= 0) EmitSignal(nameof(EnemyDestroyed));
+            }
         }
 	}
 }

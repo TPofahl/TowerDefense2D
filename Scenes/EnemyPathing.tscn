@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/Enemy.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Assets/HealthBar.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/HealthBar.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/EnemyPathing.cs" type="Script" id=3]
 
 [sub_resource type="Curve2D" id=1]
@@ -11,6 +11,9 @@ _data = {
 
 [node name="EnemyPathing" type="Node2D"]
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="EnemyLine" type="Path2D" parent="."]
 curve = SubResource( 1 )

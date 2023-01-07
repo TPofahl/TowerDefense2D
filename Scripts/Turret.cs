@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Turret : Node2D
+public class Turret : Area2D
 {
 	public Node2D target;
 	public Area2D turretRange;
@@ -55,7 +55,7 @@ public class Turret : Node2D
 		if (target != null) return;
 		var targets = turretRange.GetOverlappingAreas();
 		if (targets.Count != 0) target = (Node2D)targets[0];
-		if (IsInstanceValid(target)) target.Connect("EnemyDestroyed", this, "OnEnemyDestroyed");
+		if (IsInstanceValid(target) && !target.IsConnected("EnemyDestroyed", this, "OnEnemyDestroyed")) target.Connect("EnemyDestroyed", this, "OnEnemyDestroyed");
 	}
 
 	private void Shoot()
@@ -70,7 +70,7 @@ public class Turret : Node2D
 
 	public void OnEnemyDestroyed()
 	{
-		target.Disconnect("EnemyDestroyed", this, "OnEnemyDestroyed");
+		if (IsInstanceValid(target)) target.Disconnect("EnemyDestroyed", this, "OnEnemyDestroyed");
 		target = null;
 	}
 }

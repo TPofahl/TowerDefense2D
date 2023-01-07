@@ -26,6 +26,7 @@ public class EnemyPathing : Node2D
 	
 	public void OnEnemyDestroyed()
 	{
+		Enemy.Disconnect("EnemyDestroyed", this, "OnEnemyDestroyed");
 		QueueFree();
 	}
 }
