@@ -633,7 +633,6 @@
 
 [node name="Level1" type="Node2D"]
 script = ExtResource( 9 )
-spawnTime = 1.0
 
 [node name="Background" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
@@ -1020,8 +1019,10 @@ collision_mask = 2
 position = Vector2( 480, 480 )
 
 [node name="UI" parent="." instance=ExtResource( 10 )]
-margin_left = -32.0
-margin_top = 832.0
-margin_right = 338.0
-margin_bottom = 1008.0
+margin_left = 32.0
+margin_top = 776.0
+margin_right = 408.0
+margin_bottom = 991.0
 rect_scale = Vector2( 1.45, 1.45 )
+
+[connection signal="child_exiting_tree" from="." to="." method="OnLevel1ChildExitingTree"]

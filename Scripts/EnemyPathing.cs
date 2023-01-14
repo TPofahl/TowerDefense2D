@@ -21,6 +21,7 @@ public class EnemyPathing : Node2D
 		if (EnemyPath.GetUnitOffset() == 1) 
 		{
 			QueueFree();
+			EnemyPath.Offset++;
 		}
   	}
 	

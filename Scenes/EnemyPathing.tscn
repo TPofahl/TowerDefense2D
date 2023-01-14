@@ -9,7 +9,7 @@ _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, -64, 544, 0, 0, 0, 0, 352, 544, 0, 0, 0, 0, 352, 224, 0, 0, 0, 0, 608, 224, 0, 0, 0, 0, 608, 544, 0, 0, 0, 0, 800, 544, 0, 0, 0, 0, 800, 864, 0, 0, 0, 0, 1056, 864, 0, 0, 0, 0, 1056, 224, 0, 0, 0, 0, 1696, 224, 0, 0, 0, 0, 1696, 544, 0, 0, 0, 0, 1376, 544, 0, 0, 0, 0, 1376, 864, 0, 0, 0, 0, 1984, 864 )
 }
 
-[node name="EnemyPathing" type="Node2D"]
+[node name="EnemyPathing" type="Node2D" groups=["EnemyPathingGroup"]]
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_group_": true
