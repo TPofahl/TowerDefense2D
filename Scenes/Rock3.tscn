@@ -3,11 +3,9 @@
 [ext_resource path="res://Assets/png/towerDefense_tile136.png" type="Texture" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 24, 24 )
+extents = Vector2( 32, 32 )
 
-[node name="Rock3" type="RigidBody2D"]
-collision_mask = 0
-gravity_scale = 0.0
+[node name="Rock3" type="Area2D"]
 __meta__ = {
 "_edit_group_": true
 }

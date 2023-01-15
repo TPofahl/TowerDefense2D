@@ -1007,9 +1007,6 @@ position = Vector2( 1504, 736 )
 [node name="Rock8" parent="Background/Foreground" instance=ExtResource( 7 )]
 position = Vector2( 1760, 736 )
 
-[node name="Rock1" parent="Background/Foreground" instance=ExtResource( 5 )]
-position = Vector2( 816, 16 )
-
 [node name="UI" parent="." instance=ExtResource( 10 )]
 margin_left = 32.0
 margin_top = 776.0
