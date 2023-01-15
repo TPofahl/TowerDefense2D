@@ -34,6 +34,9 @@ public class Enemy : Area2D
         {
             switch (body.Filename)
             {
+                case "res://Scenes/SmallRocket.tscn":
+                    health -= 50;
+                    break;
                 case "res://Scenes/Bullet.tscn":
                     health -= 10;
                     break;

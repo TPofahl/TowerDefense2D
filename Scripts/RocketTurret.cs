@@ -9,7 +9,7 @@ public class RocketTurret : Area2D
 	public int turretSpriteRadius = 50;
     public bool switchCannon = false;
 	public Timer reloadTimer;
-	PackedScene bulletScene = GD.Load<PackedScene>("res://Scenes/Bullet.tscn");
+	PackedScene rocketScene = GD.Load<PackedScene>("res://Scenes/SmallRocket.tscn");
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -61,12 +61,12 @@ public class RocketTurret : Area2D
 
 	private void Shoot()
 	{
-		Area2D bullet = (Area2D)bulletScene.Instance();
+		Area2D rocket = (Area2D)rocketScene.Instance();
 		Vector2 endOfTurret = new Vector2((float)Math.Cos(turretSprite.Rotation), (float)Math.Sin(turretSprite.Rotation));
-        if (switchCannon) bullet.GlobalPosition = GlobalPosition + new Vector2(8,0) + endOfTurret * turretSpriteRadius;
-		else bullet.GlobalPosition = GlobalPosition + new Vector2(-8,0) + endOfTurret * turretSpriteRadius;
-		bullet.GlobalRotation = turretSprite.Rotation;
-		GetTree().CurrentScene.AddChild(bullet);
+        if (switchCannon)rocket.GlobalPosition = GlobalPosition + new Vector2(8,0) + endOfTurret * turretSpriteRadius;
+		else rocket.GlobalPosition = GlobalPosition + new Vector2(-8,0) + endOfTurret * turretSpriteRadius;
+		rocket.GlobalRotation = turretSprite.Rotation;
+		GetTree().CurrentScene.AddChild(rocket);
 		reloadTimer.Start();
         switchCannon = !switchCannon;
 	}
