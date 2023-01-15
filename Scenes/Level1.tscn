@@ -979,4 +979,11 @@ rect_scale = Vector2( 1.45, 1.45 )
 
 [node name="MouseArea" parent="." instance=ExtResource( 2 )]
 
+[node name="RoadArea" type="Area2D" parent="."]
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RoadArea"]
+polygon = PoolVector2Array( 0, 464, 272, 464, 272, 144, 688, 144, 688, 464, 880, 464, 880, 784, 976, 784, 976, 144, 1776, 144, 1776, 624, 1456, 624, 1456, 784, 1920, 784, 1920, 944, 1296, 944, 1296, 464, 1616, 464, 1616, 304, 1136, 304, 1136, 944, 720, 944, 720, 624, 528, 624, 528, 304, 432, 304, 432, 624, 0, 624 )
+
 [connection signal="child_exiting_tree" from="." to="." method="OnLevel1ChildExitingTree"]

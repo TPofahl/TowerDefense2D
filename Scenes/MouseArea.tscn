@@ -5,7 +5,7 @@ radius = 16.0
 
 [node name="MouseArea" type="Area2D" groups=["MouseGroup"]]
 collision_layer = 0
-collision_mask = 5
+collision_mask = 32773
 input_pickable = false
 monitorable = false
 
