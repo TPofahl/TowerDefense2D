@@ -32,7 +32,18 @@ public class Enemy : Area2D
 	{
         if (body.IsInGroup("BulletGroup"))
         {
-            health -= 10;
+            switch (body.Filename)
+            {
+                case "res://Scenes/Bullet.tscn":
+                    health -= 10;
+                    break;
+                case "res://Scenes/Bullet2.tscn":
+                    health -= 5;
+                    break;
+                default:
+                    GD.Print("Invalid bullet type");
+                    break;
+            }
             healthTexture.Visible = true;
             healthTexture.Value = health;
             if (IsInstanceValid(healthBar))

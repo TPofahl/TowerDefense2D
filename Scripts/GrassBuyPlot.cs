@@ -3,7 +3,7 @@ using System;
 
 public class GrassBuyPlot : Area2D
 {
-    PackedScene turret = GD.Load<PackedScene>("res://Scenes/Turret.tscn");
+    PackedScene turret = GD.Load<PackedScene>("res://Scenes/RocketTurret.tscn");
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()

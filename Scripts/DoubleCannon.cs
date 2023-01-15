@@ -1,12 +1,13 @@
 using Godot;
 using System;
 
-public class Turret : Area2D
+public class DoubleCannon : Area2D
 {
 	public Node2D target;
 	public Area2D turretRange;
 	public Sprite turretSprite;
-	public int turretSpriteRadius = 40;
+	public int turretSpriteRadius = 50;
+    public bool switchCannon = false;
 	public Timer reloadTimer;
 	PackedScene bulletScene = GD.Load<PackedScene>("res://Scenes/Bullet.tscn");
 
@@ -62,10 +63,12 @@ public class Turret : Area2D
 	{
 		Area2D bullet = (Area2D)bulletScene.Instance();
 		Vector2 endOfTurret = new Vector2((float)Math.Cos(turretSprite.Rotation), (float)Math.Sin(turretSprite.Rotation));
-		bullet.GlobalPosition = GlobalPosition + endOfTurret * turretSpriteRadius;
+        if (switchCannon) bullet.GlobalPosition = GlobalPosition + new Vector2(8,0) + endOfTurret * turretSpriteRadius;
+		else bullet.GlobalPosition = GlobalPosition + new Vector2(-8,0) + endOfTurret * turretSpriteRadius;
 		bullet.GlobalRotation = turretSprite.Rotation;
 		GetTree().CurrentScene.AddChild(bullet);
 		reloadTimer.Start();
+        switchCannon = !switchCannon;
 	}
 
 	public void OnEnemyDestroyed()
