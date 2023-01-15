@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scenes/Bush.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/MouseArea.tscn" type="PackedScene" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://Scenes/Rock1.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Clover.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Rock3.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scenes/GrassBuyPlot.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scripts/Level1.cs" type="Script" id=9]
 [ext_resource path="res://Scenes/UI.tscn" type="PackedScene" id=10]
 
@@ -949,42 +948,6 @@ position = Vector2( 1248, 480 )
 
 [node name="Clover" parent="Background/Foreground" instance=ExtResource( 6 )]
 position = Vector2( 480, 544 )
-
-[node name="GrassBuyPlot" parent="Background/Foreground" instance=ExtResource( 8 )]
-position = Vector2( 480, 352 )
-
-[node name="GrassBuyPlot2" parent="Background/Foreground" instance=ExtResource( 8 )]
-position = Vector2( 480, 480 )
-
-[node name="GrassBuyPlot3" parent="Background/Foreground" instance=ExtResource( 8 )]
-position = Vector2( 928, 544 )
-
-[node name="GrassBuyPlot4" parent="Background/Foreground" instance=ExtResource( 8 )]
-position = Vector2( 1184, 352 )
-
-[node name="GrassBuyPlot5" parent="Background/Foreground" instance=ExtResource( 8 )]
-position = Vector2( 96, 416 )
-
-[node name="GrassBuyPlot6" parent="Background/Foreground" instance=ExtResource( 8 )]
-position = Vector2( 288, 672 )
-
-[node name="GrassBuyPlot7" parent="Background/Foreground" instance=ExtResource( 8 )]
-position = Vector2( 1248, 544 )
-
-[node name="GrassBuyPlot8" parent="Background/Foreground" instance=ExtResource( 8 )]
-position = Vector2( 1568, 352 )
-
-[node name="GrassBuyPlot9" parent="Background/Foreground" instance=ExtResource( 8 )]
-position = Vector2( 1696, 672 )
-
-[node name="GrassBuyPlot10" parent="Background/Foreground" instance=ExtResource( 8 )]
-position = Vector2( 1184, 736 )
-
-[node name="GrassBuyPlot11" parent="Background/Foreground" instance=ExtResource( 8 )]
-position = Vector2( 928, 992 )
-
-[node name="GrassBuyPlot12" parent="Background/Foreground" instance=ExtResource( 8 )]
-position = Vector2( 1696, 992 )
 
 [node name="Rock2" parent="Background/Foreground" instance=ExtResource( 4 )]
 position = Vector2( 480, 608 )

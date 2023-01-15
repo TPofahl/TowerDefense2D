@@ -9,6 +9,7 @@ public class Level1 : Node2D
 	public int money = 150;
 	float timer = 0;
 	PackedScene enemy = GD.Load<PackedScene>("res://Scenes/EnemyPathing.tscn");
+	PackedScene turret = GD.Load<PackedScene>("res://Scenes/RocketTurret.tscn");
 	Area2D mouse;
 	TileMap backGround;
 	TileMap foreGround;
@@ -51,20 +52,20 @@ public class Level1 : Node2D
 			var targets = mouse.GetOverlappingAreas();
 			if (targets.Count != 0)
 			{
-				// Allow player to place their turret
 				GD.Print("True");
 				Console.WriteLine("True");
 			} else {
-				// Give some signal that player cannot place a turret
-				GD.Print("False");
-				Console.WriteLine("False");
+				// Place turret on the center of the selected tilemap area. Each tile is 64px
+				Area2D newTurret = (Area2D)turret.Instance();
+				var mousePosition = GetGlobalMousePosition();
+				var xPos = Math.Floor(mousePosition.x / 64);
+				var yPos = Math.Floor(mousePosition.y / 64);
+				xPos = xPos * 64;
+				yPos = yPos * 64;
+				newTurret.GlobalPosition = new Vector2((float)xPos + 32, (float)yPos + 32);
+				AddChild(newTurret); 
 			}
 		}
-	}
-
-	private void CheckMouseOverlap()
-	{
-
 	}
 
 	private void SpawnEnemy (float delta)
