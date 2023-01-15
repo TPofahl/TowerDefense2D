@@ -9,6 +9,7 @@ public class Level1 : Node2D
 	public int money = 150;
 	float timer = 0;
 	PackedScene enemy = GD.Load<PackedScene>("res://Scenes/EnemyPathing.tscn");
+	Area2D mouse;
 	TileMap backGround;
 	TileMap foreGround;
 	LineEdit moneyUI;
@@ -21,18 +22,19 @@ public class Level1 : Node2D
 
 
 
-		// Called when the node enters the scene tree for the first time.
+	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		backGround = GetNode<TileMap>("Background");
 		foreGround = GetNode<TileMap>("Background/Foreground");
 		moneyUI = GetNode<LineEdit>("UI/UIContainer/StatsContainer/MoneyUI/LineEdit");
 		healthUI = GetNode<LineEdit>("UI/UIContainer/StatsContainer/HealthUI/Label");
-		moneyUI.Text = money.ToString();
+		mouse = GetNode<Area2D>("MouseArea");
 		UITurretSprite1 = GetNode<Button>("UI/UIContainer/TurretsContainer/TurretContainer1/Turret1");
 		UITurretSprite2 = GetNode<Button>("UI/UIContainer/TurretsContainer/TurretContainer2/Turret2");
 		UITurretSprite3 = GetNode<Button>("UI/UIContainer/TurretsContainer/TurretContainer3/Turret3");
 		UITurretSprite4 = GetNode<Button>("UI/UIContainer/TurretsContainer/TurretContainer4/Turret4");
+		moneyUI.Text = money.ToString();
 		SetUIButtonStatus();
 	}
 
@@ -40,6 +42,29 @@ public class Level1 : Node2D
   	public override void _Process(float delta) 
 	{
 		SpawnEnemy(delta);
+		if (Input.IsActionJustPressed("click"))
+		{
+			mouse.GlobalPosition = GetGlobalMousePosition();
+		}
+		if (Input.IsActionJustReleased("click"))
+		{
+			var targets = mouse.GetOverlappingAreas();
+			if (targets.Count != 0)
+			{
+				// Allow player to place their turret
+				GD.Print("True");
+				Console.WriteLine("True");
+			} else {
+				// Give some signal that player cannot place a turret
+				GD.Print("False");
+				Console.WriteLine("False");
+			}
+		}
+	}
+
+	private void CheckMouseOverlap()
+	{
+
 	}
 
 	private void SpawnEnemy (float delta)
@@ -60,6 +85,8 @@ public class Level1 : Node2D
 		{
 			PathFollow2D ePath = target.GetNode<PathFollow2D>("EnemyLine/EnemyPath");
 			float endOfPath = ePath.GetOffset();
+			// 4923 is the total distance the enemies travel along their set path. This can be found under the EnemyPathing.tscn > EnemyPath > 
+			// and in the inspector, Unit Offset.
  			if (endOfPath >= 4923)
 			{
 				var currentHealth = healthUI.GetText();

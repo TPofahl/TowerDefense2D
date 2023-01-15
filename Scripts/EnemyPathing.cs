@@ -4,7 +4,7 @@ using System;
 public class EnemyPathing : Node2D 
 {
 	[Export]
-	public int EnemySpeed = 80;
+	public int EnemySpeed = 80; //80
 	public PathFollow2D EnemyPath;
 	public Area2D Enemy;
 

@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scenes/Bush.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/MouseArea.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/towerDefense_tilesheet.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/Rock2.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Rock1.tscn" type="PackedScene" id=5]
@@ -1006,11 +1007,16 @@ position = Vector2( 1504, 736 )
 [node name="Rock8" parent="Background/Foreground" instance=ExtResource( 7 )]
 position = Vector2( 1760, 736 )
 
+[node name="Rock1" parent="Background/Foreground" instance=ExtResource( 5 )]
+position = Vector2( 816, 16 )
+
 [node name="UI" parent="." instance=ExtResource( 10 )]
 margin_left = 32.0
 margin_top = 776.0
 margin_right = 408.0
 margin_bottom = 991.0
 rect_scale = Vector2( 1.45, 1.45 )
+
+[node name="MouseArea" parent="." instance=ExtResource( 2 )]
 
 [connection signal="child_exiting_tree" from="." to="." method="OnLevel1ChildExitingTree"]
