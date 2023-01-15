@@ -57,7 +57,7 @@ public class Level1 : Node2D
 			} else {
 				// Place turret on the center of the selected tilemap area. Each tile is 64px
 				Area2D newTurret = (Area2D)turret.Instance();
-				var mousePosition = GetGlobalMousePosition();
+				var mousePosition = mouse.GlobalPosition;
 				var xPos = Math.Floor(mousePosition.x / 64);
 				var yPos = Math.Floor(mousePosition.y / 64);
 				xPos = xPos * 64;
