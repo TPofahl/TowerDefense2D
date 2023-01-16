@@ -4,7 +4,7 @@ using System;
 public class Enemy : Area2D
 {
     [Signal]
-    delegate void EnemyDestroyed();
+    public delegate void EnemyDestroyed();
     [Export]
     public int health = 500;
     [Export]
