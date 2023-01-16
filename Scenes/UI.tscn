@@ -73,6 +73,7 @@ __meta__ = {
 [node name="Turret1" type="Button" parent="UIContainer/TurretsContainer/TurretContainer1"]
 margin_right = 76.0
 margin_bottom = 70.0
+toggle_mode = true
 icon = ExtResource( 4 )
 
 [node name="CostBackground" type="NinePatchRect" parent="UIContainer/TurretsContainer/TurretContainer1"]
@@ -118,6 +119,7 @@ __meta__ = {
 [node name="Turret2" type="Button" parent="UIContainer/TurretsContainer/TurretContainer2"]
 margin_right = 76.0
 margin_bottom = 70.0
+toggle_mode = true
 icon = ExtResource( 1 )
 
 [node name="CostBackground" type="NinePatchRect" parent="UIContainer/TurretsContainer/TurretContainer2"]
@@ -163,6 +165,7 @@ __meta__ = {
 [node name="Turret3" type="Button" parent="UIContainer/TurretsContainer/TurretContainer3"]
 margin_right = 76.0
 margin_bottom = 70.0
+toggle_mode = true
 icon = ExtResource( 2 )
 
 [node name="CostBackground" type="NinePatchRect" parent="UIContainer/TurretsContainer/TurretContainer3"]
@@ -208,6 +211,7 @@ __meta__ = {
 [node name="Turret4" type="Button" parent="UIContainer/TurretsContainer/TurretContainer4"]
 margin_right = 76.0
 margin_bottom = 70.0
+toggle_mode = true
 icon = ExtResource( 3 )
 
 [node name="CostBackground" type="NinePatchRect" parent="UIContainer/TurretsContainer/TurretContainer4"]

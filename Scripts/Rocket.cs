@@ -19,7 +19,6 @@ public class Rocket : Area2D
 	{
         var movement = rotation.Rotated(GlobalRotation) * bulletSpeed * delta;
 	    GlobalPosition += movement;
-        //rocketSprite.RotationDegrees -= 10;
 	}
 
     private void OnVisibilityNotifier2DScreenExited()

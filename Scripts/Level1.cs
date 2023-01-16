@@ -6,7 +6,7 @@ public class Level1 : Node2D
 	[Export]
 	public float spawnTime = 2;
 	[Export]
-	public int money = 150;
+	public int money = 1000;
 	float timer = 0;
 	private bool buttonToggled = false;
 	PackedScene enemy = GD.Load<PackedScene>("res://Scenes/EnemyPathing.tscn");
@@ -58,7 +58,11 @@ public class Level1 : Node2D
 		if (Input.IsActionJustReleased("click"))
 		{
 			var targets = mouse.GetOverlappingAreas();
-			if (targets.Count == 0) PlaceTurret(mouse.GlobalPosition);
+			if (targets.Count == 0 && turret != null)
+			{
+				PlaceTurret(mouse.GlobalPosition);
+				UpdateMoneySpent();
+			}
 		}
 	}
 
@@ -116,19 +120,31 @@ public class Level1 : Node2D
 
 	private void OnTurretUIButtonToggled(string buttonType)
 	{
+		UIButton1.Pressed = false;
+		UIButton2.Pressed = false;
+		UIButton3.Pressed = false;
+		UIButton4.Pressed = false;
 		switch (buttonType) 
 		{
 			case "MachineTurret":
+				UIButton1.Pressed = true;
 				turret = machineTurret;
+				turret.ResourceName = "MachineTurret";
 				break;
 			case "SingleCannon":
+				UIButton2.Pressed = true;
 				turret = singleCannon;
+				turret.ResourceName = "SingleCannon";
 				break;
 			case "DoubleCannon":
+				UIButton3.Pressed = true;
 				turret = doubleCannon;
+				turret.ResourceName = "DoubleCannon";
 				break;
 			case "RocketTurret":
+				UIButton4.Pressed = true;
 				turret = rocketTurret;
+				turret.ResourceName = "RocketTurret";
 				break;
 			default:
 				turret = null;
@@ -141,12 +157,76 @@ public class Level1 : Node2D
 		// Place turret on the center of the selected tilemap area. Each tile is 64px
 		if (turret == null) return;
 		Area2D newTurret = (Area2D)turret.Instance();
-		//var mousePos = mousePosition;
 		var xPos = Math.Floor(mousePosition.x / 64);
 		var yPos = Math.Floor(mousePosition.y / 64);
 		xPos = xPos * 64;
 		yPos = yPos * 64;
 		newTurret.GlobalPosition = new Vector2((float)xPos + 32, (float)yPos + 32);
 		AddChild(newTurret); 
+	}
+	private void UpdateMoneySpent()
+	{
+		if (turret == null) return;
+		string turretType = turret.ResourceName;
+		var currentMoney = Convert.ToInt32(moneyUI.Text);
+		switch (turretType)
+		{
+			case "MachineTurret":
+				if (UIButton1.Disabled) turret = null;
+				else 
+				{ 
+					currentMoney -= 50;
+					moneyUI.Text = ( currentMoney).ToString();
+					if (currentMoney < 50)
+					{
+						turret = null;
+						UIButton1.Pressed = false;
+					}
+				}
+				break;
+			case "SingleCannon":	
+				if (UIButton2.Disabled) turret = null;
+				else 
+				{ 
+					currentMoney -= 100;
+					moneyUI.Text = ( currentMoney).ToString();
+					if (currentMoney < 100)
+					{
+						turret = null;
+						UIButton2.Pressed = false;
+					}
+				}
+				break;
+			case "DoubleCannon":
+				if (UIButton3.Disabled) turret = null;
+				else 
+				{ 
+					currentMoney -= 150;
+					moneyUI.Text = ( currentMoney).ToString();
+					if (currentMoney < 150)
+					{
+						turret = null;
+						UIButton3.Pressed = false;
+					}
+				}
+				break;
+			case "RocketTurret":
+				if (UIButton4.Disabled) turret = null;
+				else 
+				{ 
+					currentMoney -= 200;
+					moneyUI.Text = ( currentMoney).ToString();
+					if (currentMoney < 200)
+					{
+						turret = null;
+						UIButton4.Pressed = false;
+					}
+				}
+				break;
+			default:
+				GD.Print("ERROR: Invalid turretType in UpdateMoneySpentSpent");
+				break;
+		}
+		SetUIButtonStatus();
 	}
 }
