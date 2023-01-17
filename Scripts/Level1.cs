@@ -83,20 +83,20 @@ public class Level1 : Node2D
 		if (target.IsInGroup("EnemyPathingGroup"))
 		{
 			PathFollow2D ePath = target.GetNode<PathFollow2D>("EnemyLine/EnemyPath");
-			float endOfPath = ePath.GetOffset();
+			float endOfPath = ePath.Offset;
 			// 4923 is the total distance the enemies travel along their set path. This can be found under the EnemyPathing.tscn > EnemyPath > 
 			// and in the inspector, Unit Offset.
  			if (endOfPath >= 4923)
 			{
-				var currentHealth = healthUI.GetText();
+				var currentHealth = healthUI.Text;
 				var newHealth = Convert.ToInt32(currentHealth);
-				healthUI.SetText((newHealth -= 5 ).ToString());
+				healthUI.Text = (newHealth -= 5 ).ToString();
 			}
 			else 
 			{
-				var currentMoney = moneyUI.GetText();
+				var currentMoney = moneyUI.Text;
 				var newMoney = Convert.ToInt32(currentMoney);
-				moneyUI.SetText(( newMoney += 50 ).ToString());
+				moneyUI.Text = ( newMoney += 50 ).ToString();
 				SetUIButtonStatus();
 			}
 		}
