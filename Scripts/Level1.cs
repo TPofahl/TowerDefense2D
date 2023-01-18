@@ -16,7 +16,12 @@ public class Level1 : Node2D
 	PackedScene singleCannon = GD.Load<PackedScene>("res://Scenes/SingleCannon.tscn");
 	PackedScene doubleCannon = GD.Load<PackedScene>("res://Scenes/DoubleCannon.tscn");
 	PackedScene rocketTurret = GD.Load<PackedScene>("res://Scenes/RocketTurret.tscn");
+	Texture machineTurretSprite = GD.Load<Texture>("res://Assets/png/towerDefense_tile203.png");
+	Texture singleCannonSprite = GD.Load<Texture>("res://Assets/png/towerDefense_tile249.png");
+	Texture DoubleCannonSprite = GD.Load<Texture>("res://Assets/png/towerDefense_tile250.png");
+	Texture RocketTurretSprite = GD.Load<Texture>("res://Assets/png/towerDefense_tile204.png");
 	Area2D mouse;
+	Sprite ghostSprite;
 	TileMap backGround;
 	TileMap foreGround;
 	Control UI;
@@ -39,6 +44,7 @@ public class Level1 : Node2D
 		moneyUI = GetNode<LineEdit>("UI/UIContainer/StatsContainer/MoneyUI/LineEdit");
 		healthUI = GetNode<LineEdit>("UI/UIContainer/StatsContainer/HealthUI/Label");
 		mouse = GetNode<Area2D>("MouseArea");
+		ghostSprite = GetNode<Sprite>("MouseArea/TurretGhost");
 		UIButton1 = GetNode<Button>("UI/UIContainer/TurretsContainer/TurretContainer1/Turret1");
 		UIButton2 = GetNode<Button>("UI/UIContainer/TurretsContainer/TurretContainer2/Turret2");
 		UIButton3 = GetNode<Button>("UI/UIContainer/TurretsContainer/TurretContainer3/Turret3");
@@ -52,13 +58,20 @@ public class Level1 : Node2D
   	public override void _Process(float delta) 
 	{
 		SpawnEnemy(delta);
+		mouse.GlobalPosition = GetGlobalMousePosition();
+		var targets = mouse.GetOverlappingAreas();
+		if (targets.Count == 0 && turret != null)
+		{
+			ghostSprite.Visible = true;
+			var xPos = Math.Floor(mouse.GlobalPosition.x / 64);
+			var yPos = Math.Floor(mouse.GlobalPosition.y / 64);
+			xPos = xPos * 64;
+			yPos = yPos * 64;
+			ghostSprite.GlobalPosition = new Vector2((float)xPos + 32, (float)yPos + 32);
+		}
+		else ghostSprite.Visible = false;
 		if (Input.IsActionJustPressed("click"))
 		{
-			mouse.GlobalPosition = GetGlobalMousePosition();
-		}
-		if (Input.IsActionJustReleased("click"))
-		{
-			var targets = mouse.GetOverlappingAreas();
 			if (targets.Count == 0 && turret != null)
 			{
 				PlaceTurret(mouse.GlobalPosition);
@@ -138,6 +151,7 @@ public class Level1 : Node2D
 				{
 					UIButton1.Pressed = true;
 					turret = machineTurret;
+					ghostSprite.Texture = machineTurretSprite;
 					turret.ResourceName = lastButtonPressed = buttonType;
 				}
 				break;
@@ -152,6 +166,7 @@ public class Level1 : Node2D
 				{
 					UIButton2.Pressed = true;
 					turret = singleCannon;
+					ghostSprite.Texture = singleCannonSprite;
 					turret.ResourceName = lastButtonPressed = buttonType;
 				}
 				break;
@@ -166,6 +181,7 @@ public class Level1 : Node2D
 				{
 					UIButton3.Pressed = true;
 					turret = doubleCannon;
+					ghostSprite.Texture = DoubleCannonSprite;
 					turret.ResourceName = lastButtonPressed = buttonType;
 				}
 				break;
@@ -180,6 +196,7 @@ public class Level1 : Node2D
 				{
 					UIButton4.Pressed = true;
 					turret = rocketTurret;
+					ghostSprite.Texture = RocketTurretSprite;
 					turret.ResourceName = lastButtonPressed = buttonType;
 				}
 				break;
