@@ -632,6 +632,9 @@
 
 [node name="Level1" type="Node2D"]
 script = ExtResource( 9 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Background" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
@@ -982,8 +985,14 @@ rect_scale = Vector2( 1.45, 1.45 )
 [node name="RoadArea" type="Area2D" parent="."]
 collision_mask = 0
 monitoring = false
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RoadArea"]
-polygon = PoolVector2Array( 0, 464, 272, 464, 272, 144, 688, 144, 688, 464, 880, 464, 880, 784, 976, 784, 976, 144, 1776, 144, 1776, 624, 1456, 624, 1456, 784, 1920, 784, 1920, 944, 1296, 944, 1296, 464, 1616, 464, 1616, 304, 1136, 304, 1136, 944, 720, 944, 720, 624, 528, 624, 528, 304, 432, 304, 432, 624, 0, 624 )
+polygon = PoolVector2Array( 0, 456, 264, 456, 264, 136, 696, 136, 696, 456, 888, 456, 888, 776, 968, 776, 968, 136, 1784, 136, 1784, 632, 1464, 632, 1464, 776, 1920, 776, 1920, 952, 1288, 952, 1288, 456, 1608, 456, 1608, 312, 1144, 312, 1144, 952, 712, 952, 712, 632, 520, 632, 520, 312, 440, 312, 440, 632, 0, 632 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [connection signal="child_exiting_tree" from="." to="." method="OnLevel1ChildExitingTree"]

@@ -6,7 +6,7 @@ public class Level1 : Node2D
 	[Export]
 	public float spawnTime = 2;
 	[Export]
-	public int money = 1000;
+	public int money = 50000;
 	float timer = 0;
 	private bool buttonToggled = false;
 	PackedScene enemy = GD.Load<PackedScene>("res://Scenes/EnemyPathing.tscn");

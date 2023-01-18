@@ -6,7 +6,7 @@ public class Enemy : Area2D
     [Signal]
     public delegate void EnemyDestroyed();
     [Export]
-    public int health = 500;
+    public int health = 5000;
     [Export]
     public Vector2 healthBarOffset = new Vector2(-25,35);
     TextureProgress healthTexture;
