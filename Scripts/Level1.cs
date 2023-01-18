@@ -9,6 +9,7 @@ public class Level1 : Node2D
 	public int money = 50000;
 	float timer = 0;
 	private bool buttonToggled = false;
+	string lastButtonPressed = "";
 	PackedScene enemy = GD.Load<PackedScene>("res://Scenes/EnemyPathing.tscn");
 	PackedScene turret;
 	PackedScene machineTurret = GD.Load<PackedScene>("res://Scenes/MachineTurret.tscn");
@@ -127,24 +128,60 @@ public class Level1 : Node2D
 		switch (buttonType) 
 		{
 			case "MachineTurret":
-				UIButton1.Pressed = true;
-				turret = machineTurret;
-				turret.ResourceName = "MachineTurret";
+				if (lastButtonPressed == buttonType)
+				{
+					UIButton1.Pressed = false;
+					lastButtonPressed = "";
+					turret = null;
+					return;
+				} else
+				{
+					UIButton1.Pressed = true;
+					turret = machineTurret;
+					turret.ResourceName = lastButtonPressed = buttonType;
+				}
 				break;
 			case "SingleCannon":
-				UIButton2.Pressed = true;
-				turret = singleCannon;
-				turret.ResourceName = "SingleCannon";
+				if (lastButtonPressed == buttonType)
+				{
+					UIButton2.Pressed = false;
+					lastButtonPressed = "";
+					turret = null;
+					return;
+				} else
+				{
+					UIButton2.Pressed = true;
+					turret = singleCannon;
+					turret.ResourceName = lastButtonPressed = buttonType;
+				}
 				break;
 			case "DoubleCannon":
-				UIButton3.Pressed = true;
-				turret = doubleCannon;
-				turret.ResourceName = "DoubleCannon";
+				if (lastButtonPressed == buttonType)
+				{
+					UIButton3.Pressed = false;
+					lastButtonPressed = "";
+					turret = null;
+					return;
+				} else
+				{
+					UIButton3.Pressed = true;
+					turret = doubleCannon;
+					turret.ResourceName = lastButtonPressed = buttonType;
+				}
 				break;
 			case "RocketTurret":
-				UIButton4.Pressed = true;
-				turret = rocketTurret;
-				turret.ResourceName = "RocketTurret";
+				if (lastButtonPressed == buttonType)
+				{
+					UIButton4.Pressed = false;
+					lastButtonPressed = "";
+					turret = null;
+					return;
+				} else
+				{
+					UIButton4.Pressed = true;
+					turret = rocketTurret;
+					turret.ResourceName = lastButtonPressed = buttonType;
+				}
 				break;
 			default:
 				turret = null;
