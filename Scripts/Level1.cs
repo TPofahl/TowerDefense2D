@@ -70,7 +70,7 @@ public class Level1 : Node2D
 			ghostSprite.GlobalPosition = new Vector2((float)xPos + 32, (float)yPos + 32);
 		}
 		else ghostSprite.Visible = false;
-		if (Input.IsActionJustPressed("click"))
+		if (Input.IsActionJustPressed("LeftMouse"))
 		{
 			if (targets.Count == 0 && turret != null)
 			{
