@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/png/towerDefense_tile250.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/DoubleCannon.cs" type="Script" id=2]
 [ext_resource path="res://Assets/png/towerDefense_tile180.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/TurretUI.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 288.0
@@ -16,9 +17,6 @@ extents = Vector2( 24, 24 )
 rotation = 1.5708
 collision_layer = 4
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="Sprite" type="Sprite" parent="."]
 z_index = 20
@@ -50,6 +48,11 @@ shape = SubResource( 1 )
 [node name="TurretBase" type="Sprite" parent="."]
 z_index = 10
 texture = ExtResource( 3 )
+
+[node name="TurretUI" parent="." instance=ExtResource( 4 )]
+visible = false
+position = Vector2( -423.997, 896.002 )
+rotation = -1.5708
 
 [connection signal="area_entered" from="Area2D" to="." method="OnTurretDetectionAreaEntered"]
 [connection signal="area_exited" from="Area2D" to="." method="OnTurretDetectionAreaExit"]

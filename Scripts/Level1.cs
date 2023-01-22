@@ -216,7 +216,7 @@ public class Level1 : Node2D
 		xPos = xPos * 64;
 		yPos = yPos * 64;
 		newTurret.GlobalPosition = new Vector2((float)xPos + 32, (float)yPos + 32);
-		AddChild(newTurret); 
+		AddChild(newTurret);
 	}
 	private void UpdateMoneySpent()
 	{

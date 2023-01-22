@@ -9,6 +9,8 @@ public class DoubleCannon : Area2D
 	public int turretSpriteRadius = 50;
     public bool switchCannon = false;
 	public Timer reloadTimer;
+	public Node2D turretUI;
+	public MeshInstance2D turretAreaMesh;
 	PackedScene bulletScene = GD.Load<PackedScene>("res://Scenes/Bullet.tscn");
 
 	// Called when the node enters the scene tree for the first time.
@@ -17,7 +19,10 @@ public class DoubleCannon : Area2D
 		turretRange = GetNode<Area2D>("Area2D");
 		turretSprite = GetNode<Sprite>("Sprite");
 		reloadTimer = GetNode<Timer>("Area2D/TurretDetectionArea/ReloadTimer");
+		turretAreaMesh = GetNode<MeshInstance2D>("Area2D/TurretDetectionArea/TurretDetectionMesh");
+		turretUI = GetNode<Node2D>("TurretUI");
 		reloadTimer.Start();
+		turretUI.Connect("TurretUIExited", this, "OnTurretUIExited");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -74,6 +79,13 @@ public class DoubleCannon : Area2D
 	public void OnEnemyDestroyed()
 	{
 		if (IsInstanceValid(target)) target.Disconnect("EnemyDestroyed", this, "OnEnemyDestroyed");
+		target = null;
+	}
+
+	private void OnTurretUIExited()
+	{
+		turretUI.Visible = false;
+		turretAreaMesh.Visible = false;
 		target = null;
 	}
 }
