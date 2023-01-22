@@ -46,6 +46,7 @@ mesh = SubResource( 3 )
 shape = SubResource( 1 )
 
 [node name="TurretBase" type="Sprite" parent="."]
+modulate = Color( 1, 1, 0.988235, 1 )
 z_index = 10
 texture = ExtResource( 3 )
 
