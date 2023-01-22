@@ -10,11 +10,13 @@ public class Turret : Area2D
     public bool switchCannon = false;
 	public Timer reloadTimer;
 	public Node2D turretUI;
+	public CollisionShape2D turretUICollider;
 	public MeshInstance2D turretAreaMesh;
 	PackedScene bulletScene = GD.Load<PackedScene>("res://Scenes/Bullet.tscn");
 	PackedScene bulletScene2 = GD.Load<PackedScene>("res://Scenes/Bullet2.tscn");
 	PackedScene rocketScene = GD.Load<PackedScene>("res://Scenes/SmallRocket.tscn");
 	PackedScene shotScene;
+	private Vector2 screenSize = OS.WindowSize;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -24,9 +26,20 @@ public class Turret : Area2D
 		reloadTimer = GetNode<Timer>("Area2D/TurretDetectionArea/ReloadTimer");
 		turretAreaMesh = GetNode<MeshInstance2D>("Area2D/TurretDetectionArea/TurretDetectionMesh");
 		turretUI = GetNode<Node2D>("TurretUI");
+		turretUICollider = GetNode<CollisionShape2D>("TurretUI/Area2D/CollisionShape2D");
 		reloadTimer.Start();
 		turretUI.Connect("TurretUIExited", this, "OnTurretUIExited");
 		AssignBulletType();
+		// Flip UI if turret is placed on lower-half of screen, to prevent the UI from clipping outside game world.
+		if (this.GlobalPosition.y > screenSize.y / 2)
+		{
+			var xPos = turretUICollider.GlobalPosition.x;
+			var yPos = turretUICollider.GlobalPosition.y;
+			var uiXPos = turretUI.GlobalPosition.x;
+			var uiyPos = turretUI.GlobalPosition.y;
+			turretUICollider.GlobalPosition = new Vector2(xPos, yPos += 64);
+			turretUI.GlobalPosition = new Vector2(uiXPos, uiyPos -= 232);
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
