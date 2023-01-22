@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/png/towerDefense_tile204.png" type="Texture" id=1]
-[ext_resource path="res://Scripts/RocketTurret.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/Turret.cs" type="Script" id=2]
 [ext_resource path="res://Assets/png/towerDefense_tile180.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/TurretUI.tscn" type="PackedScene" id=4]
 

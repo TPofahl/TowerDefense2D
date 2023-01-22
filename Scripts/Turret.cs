@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class RocketTurret : Area2D
+public class Turret : Area2D
 {
 	public Node2D target;
 	public Area2D turretRange;
@@ -9,7 +9,12 @@ public class RocketTurret : Area2D
 	public int turretSpriteRadius = 50;
     public bool switchCannon = false;
 	public Timer reloadTimer;
+	public Node2D turretUI;
+	public MeshInstance2D turretAreaMesh;
+	PackedScene bulletScene = GD.Load<PackedScene>("res://Scenes/Bullet.tscn");
+	PackedScene bulletScene2 = GD.Load<PackedScene>("res://Scenes/Bullet2.tscn");
 	PackedScene rocketScene = GD.Load<PackedScene>("res://Scenes/SmallRocket.tscn");
+	PackedScene shotScene;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -17,7 +22,11 @@ public class RocketTurret : Area2D
 		turretRange = GetNode<Area2D>("Area2D");
 		turretSprite = GetNode<Sprite>("Sprite");
 		reloadTimer = GetNode<Timer>("Area2D/TurretDetectionArea/ReloadTimer");
+		turretAreaMesh = GetNode<MeshInstance2D>("Area2D/TurretDetectionArea/TurretDetectionMesh");
+		turretUI = GetNode<Node2D>("TurretUI");
 		reloadTimer.Start();
+		turretUI.Connect("TurretUIExited", this, "OnTurretUIExited");
+		AssignBulletType();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -61,12 +70,16 @@ public class RocketTurret : Area2D
 
 	private void Shoot()
 	{
-		Area2D rocket = (Area2D)rocketScene.Instance();
+		Area2D shot = (Area2D)shotScene.Instance();
 		Vector2 endOfTurret = new Vector2((float)Math.Cos(turretSprite.Rotation), (float)Math.Sin(turretSprite.Rotation));
-        if (switchCannon)rocket.GlobalPosition = GlobalPosition + new Vector2(8,0) + endOfTurret * turretSpriteRadius;
-		else rocket.GlobalPosition = GlobalPosition + new Vector2(-8,0) + endOfTurret * turretSpriteRadius;
-		rocket.GlobalRotation = turretSprite.Rotation;
-		GetTree().CurrentScene.AddChild(rocket);
+		if (this.Filename == "res://Scenes/SingleCannon.tscn") shot.GlobalPosition = GlobalPosition + endOfTurret * turretSpriteRadius;
+		else 
+		{
+			if (switchCannon) shot.GlobalPosition = GlobalPosition + new Vector2(8,0) + endOfTurret * turretSpriteRadius;
+			else shot.GlobalPosition = GlobalPosition + new Vector2(-8,0) + endOfTurret * turretSpriteRadius;
+		}
+		shot.GlobalRotation = turretSprite.Rotation;
+		GetTree().CurrentScene.AddChild(shot);
 		reloadTimer.Start();
         switchCannon = !switchCannon;
 	}
@@ -75,5 +88,34 @@ public class RocketTurret : Area2D
 	{
 		if (IsInstanceValid(target)) target.Disconnect("EnemyDestroyed", this, "OnEnemyDestroyed");
 		target = null;
+	}
+
+	private void OnTurretUIExited()
+	{
+		turretUI.Visible = false;
+		turretAreaMesh.Visible = false;
+		target = null;
+	}
+
+	private void AssignBulletType()
+	{
+		switch(this.Filename)
+		{
+			case "res://Scenes/MachineTurret.tscn":
+				shotScene = bulletScene2;
+			break;
+			case "res://Scenes/SingleCannon.tscn":
+				shotScene = bulletScene;
+			break;
+			case "res://Scenes/DoubleCannon.tscn":
+				shotScene = bulletScene;
+			break;
+			case "res://Scenes/RocketTurret.tscn":
+				shotScene = rocketScene;
+			break;
+			default:
+			GD.Print("ERROR: invalid turret type selected in Turret script.");
+			break;
+		}
 	}
 }
