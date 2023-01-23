@@ -151,6 +151,7 @@ rect_min_size = Vector2( 0, 30 )
 text = "Upgrade"
 
 [node name="Area2D" type="Area2D" parent="." groups=["TurretUIGroup"]]
+visible = false
 collision_layer = 8192
 collision_mask = 0
 monitoring = false

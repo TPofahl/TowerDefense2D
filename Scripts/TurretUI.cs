@@ -16,6 +16,7 @@ public class TurretUI : Node2D
     private RichTextLabel uiCurrentRange;
     private RichTextLabel uiNewRange;
     private Sprite uiRangeArrow;
+    private Button upgradeButton;
     public int turretLevel = 1;
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -28,6 +29,7 @@ public class TurretUI : Node2D
        uiCurrentRange = GetNode<RichTextLabel>("Background/VBoxContainer/RangeContainer/RangeUpgrade/CurrentRange");
        uiNewRange = GetNode<RichTextLabel>("Background/VBoxContainer/RangeContainer/RangeUpgrade/NewRange");
        uiRangeArrow = GetNode<Sprite>("Background/VBoxContainer/RangeContainer/RangeUpgrade/Arrow");
+       upgradeButton = GetNode<Button>("Background/VBoxContainer/Button");
        parentNode = this.GetParent<Area2D>();
        parentNode.Connect("TurretUpgraded", this, "OnTurretUpgraded");
     }
@@ -71,6 +73,8 @@ public class TurretUI : Node2D
             uiNewDamage.BbcodeText = $"[center]{newDamageText}[/center]";
             uiDamageArrow.Visible = false;
             uiRangeArrow.Visible = false;
+            upgradeButton.Modulate = Color.Color8(130,130,130,200);
+            upgradeButton.Disabled = true;
         }
     }
 }
