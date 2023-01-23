@@ -10,6 +10,7 @@ _data = {
 }
 
 [node name="EnemyPathing" type="Node2D" groups=["EnemyPathingGroup"]]
+pause_mode = 1
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_group_": true

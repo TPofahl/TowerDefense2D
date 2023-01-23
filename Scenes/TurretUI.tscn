@@ -142,21 +142,12 @@ bbcode_text = "[center]10[/center]"
 text = "10"
 
 [node name="Button" type="Button" parent="Background/VBoxContainer"]
+pause_mode = 1
+modulate = Color( 0.52549, 1, 0.196078, 1 )
 margin_top = 109.0
 margin_right = 78.0
 margin_bottom = 139.0
 rect_min_size = Vector2( 0, 30 )
-
-[node name="Upgrade" type="RichTextLabel" parent="Background/VBoxContainer/Button"]
-margin_left = 3.0
-margin_top = 7.0
-margin_right = 61.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 58, 20 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-bbcode_enabled = true
-bbcode_text = "[center]Upgrade[/center]"
 text = "Upgrade"
 
 [node name="Area2D" type="Area2D" parent="." groups=["TurretUIGroup"]]

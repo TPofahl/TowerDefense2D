@@ -4,6 +4,7 @@
 [ext_resource path="res://Assets/png/EnemyHealthBarUnder.png" type="Texture" id=2]
 
 [node name="HealthBar" type="Node2D"]
+pause_mode = 1
 scale = Vector2( 0.05, 0.07 )
 
 [node name="TextureProgress" type="TextureProgress" parent="."]

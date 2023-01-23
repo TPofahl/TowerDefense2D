@@ -17,6 +17,7 @@
 extents = Vector2( 173, 93 )
 
 [node name="UI" type="Control"]
+pause_mode = 1
 anchor_left = 0.004
 anchor_right = 1.0
 anchor_bottom = 1.0

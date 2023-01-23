@@ -6,6 +6,7 @@
 extents = Vector2( 32, 32 )
 
 [node name="Bush" type="Node2D"]
+pause_mode = 1
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )

@@ -3,6 +3,7 @@
 [ext_resource path="res://Assets/png/towerDefense_tile133.png" type="Texture" id=1]
 
 [node name="CircleBush" type="Node2D"]
+pause_mode = 1
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )

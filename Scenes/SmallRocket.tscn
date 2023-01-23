@@ -18,6 +18,7 @@ animations = [ {
 radius = 8.0
 
 [node name="SmallRocket" type="Area2D" groups=["BulletGroup"]]
+pause_mode = 1
 collision_layer = 8
 collision_mask = 2
 script = ExtResource( 2 )
@@ -37,7 +38,6 @@ scale = Vector2( 0.5, 0.5 )
 z_index = 30
 frames = SubResource( 2 )
 animation = "RocketExhaust"
-frame = 1
 speed_scale = 3.0
 playing = true
 offset = Vector2( 0, 68 )

@@ -36,6 +36,7 @@ wait_time = 0.1
 one_shot = true
 
 [node name="TurretDetectionMesh" type="MeshInstance2D" parent="Area2D/TurretDetectionArea"]
+pause_mode = 1
 visible = false
 modulate = Color( 1, 1, 1, 0.176471 )
 position = Vector2( 0.517349, -0.0541971 )
