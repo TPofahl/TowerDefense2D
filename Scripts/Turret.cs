@@ -4,7 +4,7 @@ using System;
 public class Turret : Area2D
 {
 	[Signal]
-	public delegate void TurretUpgraded(int newRange, int NewDamage);
+	public delegate void TurretUpgraded(int newRange, int NewDamage, int turretUpgradedCost);
 	public Node2D target;
 	public Area2D turretRange;
 	public Sprite turretSprite;
@@ -120,7 +120,7 @@ public class Turret : Area2D
 		target = null;
 	}
 
-	private void OnUpgradeButtonPressed(int upgradeLevel)
+	private void OnUpgradeButtonPressed(int upgradeLevel, int upgradeCost)
 	{
 		switch (upgradeLevel)
 		{
@@ -146,7 +146,7 @@ public class Turret : Area2D
 		turretDetectionArea.Scale = new Vector2((float)(turretDetectionArea.Scale.x * 0.2 + turretDetectionArea.Scale.x), (float)(turretDetectionArea.Scale.y * 0.2 + turretDetectionArea.Scale.y));
 		turretRangeText = (int)(turretRangeText * 0.2 + turretRangeText);
 		turretDamageText += 500;
-		EmitSignal(nameof(TurretUpgraded), turretRangeText, turretDamageText);
+		EmitSignal(nameof(TurretUpgraded), turretRangeText, turretDamageText, upgradeCost / 2);
 	}
 
 	private void AssignBulletType()

@@ -6,10 +6,12 @@ public class Level1 : Node2D
 	[Export]
 	public float spawnTime = 2;
 	[Export]
-	public int money = 50000;
+	public int money = 500;
 	float timer = 0;
 	private bool buttonToggled = false;
 	string lastButtonPressed = "";
+	[Signal]
+    public delegate void PlayerMoneyChanged(string newPlayerMoney);
 	PackedScene enemy = GD.Load<PackedScene>("res://Scenes/EnemyPathing.tscn");
 	PackedScene turret;
 	PackedScene machineTurret = GD.Load<PackedScene>("res://Scenes/MachineTurret.tscn");
@@ -111,6 +113,7 @@ public class Level1 : Node2D
 				var currentMoney = moneyUI.Text;
 				var newMoney = Convert.ToInt32(currentMoney);
 				moneyUI.Text = ( newMoney += 50 ).ToString();
+				EmitSignal(nameof(PlayerMoneyChanged), moneyUI.Text);
 				SetUIButtonStatus();
 			}
 		}
@@ -217,6 +220,7 @@ public class Level1 : Node2D
 		yPos = yPos * 64;
 		newTurret.GlobalPosition = new Vector2((float)xPos + 32, (float)yPos + 32);
 		AddChild(newTurret);
+		newTurret.Connect("TurretUpgraded", this, "OnTurretUpgraded");
 	}
 	private void UpdateMoneySpent()
 	{
@@ -283,4 +287,11 @@ public class Level1 : Node2D
 		}
 		SetUIButtonStatus();
 	}
+
+	private void OnTurretUpgraded(int newRangeText, int newDamageText, int turretUpgradedCost)
+	{
+		moneyUI.Text = (Convert.ToInt32(moneyUI.Text) - turretUpgradedCost).ToString();
+		EmitSignal(nameof(PlayerMoneyChanged), moneyUI.Text);
+		SetUIButtonStatus();
+    }
 }

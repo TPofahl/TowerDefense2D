@@ -148,7 +148,7 @@ margin_top = 109.0
 margin_right = 78.0
 margin_bottom = 139.0
 rect_min_size = Vector2( 0, 30 )
-text = "Upgrade"
+text = "123456"
 
 [node name="Area2D" type="Area2D" parent="." groups=["TurretUIGroup"]]
 visible = false
