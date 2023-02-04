@@ -1,13 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://Assets/png/coin_01.png" type="Texture" id=1]
-[ext_resource path="res://Scripts/MoneyUI.cs" type="Script" id=2]
 
 [node name="MoneyUI" type="HBoxContainer"]
 pause_mode = 1
 margin_right = 152.0
 margin_bottom = 45.0
-script = ExtResource( 2 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 margin_right = 45.0

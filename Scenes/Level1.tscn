@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scenes/Bush.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/MouseArea.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Scenes/Rock1.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Clover.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Rock3.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/TimerUI.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scripts/Level1.cs" type="Script" id=9]
 [ext_resource path="res://Scenes/UI.tscn" type="PackedScene" id=10]
 
@@ -632,9 +633,6 @@
 
 [node name="Level1" type="Node2D"]
 script = ExtResource( 9 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="Background" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
@@ -994,5 +992,9 @@ polygon = PoolVector2Array( 0, 456, 264, 456, 264, 136, 696, 136, 696, 456, 888,
 __meta__ = {
 "_edit_group_": true
 }
+
+[node name="TimerUI" parent="." instance=ExtResource( 8 )]
+margin_left = 832.0
+margin_right = 832.0
 
 [connection signal="child_exiting_tree" from="." to="." method="OnLevel1ChildExitingTree"]
