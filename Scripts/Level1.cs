@@ -123,16 +123,32 @@ public class Level1 : Node2D
 	{
 		var currentMoney = Convert.ToInt32(moneyUI.Text);
 		if (currentMoney >= 50) UIButton1.Disabled = false;
-		else UIButton1.Disabled = true;
+		else
+		{
+			UIButton1.Disabled = true;
+			lastButtonPressed = "";
+		}
 
 		if (currentMoney >= 100) UIButton2.Disabled = false;
-		else UIButton2.Disabled = true;
+		else
+		{
+			UIButton2.Disabled = true;
+			lastButtonPressed = "";
+		}
 
 		if (currentMoney >= 150) UIButton3.Disabled = false;
-		else UIButton3.Disabled = true;
+		else
+		{
+			UIButton3.Disabled = true;
+			lastButtonPressed = "";
+		}
 
 		if (currentMoney >= 200) UIButton4.Disabled = false;
-		else UIButton4.Disabled = true;
+		else
+		{
+			UIButton4.Disabled = true;
+			lastButtonPressed = "";
+		}
 	}
 
 	private void OnTurretUIButtonToggled(string buttonType)
@@ -235,6 +251,7 @@ public class Level1 : Node2D
 				{ 
 					currentMoney -= 50;
 					moneyUI.Text = ( currentMoney).ToString();
+					EmitSignal(nameof(PlayerMoneyChanged), moneyUI.Text);
 					if (currentMoney < 50)
 					{
 						turret = null;
@@ -248,6 +265,7 @@ public class Level1 : Node2D
 				{ 
 					currentMoney -= 100;
 					moneyUI.Text = ( currentMoney).ToString();
+					EmitSignal(nameof(PlayerMoneyChanged), moneyUI.Text);
 					if (currentMoney < 100)
 					{
 						turret = null;
@@ -261,6 +279,7 @@ public class Level1 : Node2D
 				{ 
 					currentMoney -= 150;
 					moneyUI.Text = ( currentMoney).ToString();
+					EmitSignal(nameof(PlayerMoneyChanged), moneyUI.Text);
 					if (currentMoney < 150)
 					{
 						turret = null;
@@ -274,6 +293,7 @@ public class Level1 : Node2D
 				{ 
 					currentMoney -= 200;
 					moneyUI.Text = ( currentMoney).ToString();
+					EmitSignal(nameof(PlayerMoneyChanged), moneyUI.Text);
 					if (currentMoney < 200)
 					{
 						turret = null;
