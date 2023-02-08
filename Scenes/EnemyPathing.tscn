@@ -24,7 +24,6 @@ position = Vector2( -64, 544 )
 loop = false
 
 [node name="Enemy" parent="EnemyLine/EnemyPath" instance=ExtResource( 1 )]
-scale = Vector2( 2, 2 )
 
 [node name="HealthBar" parent="EnemyLine/EnemyPath/Enemy" instance=ExtResource( 2 )]
 position = Vector2( -12, 20 )

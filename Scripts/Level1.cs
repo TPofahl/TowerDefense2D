@@ -12,7 +12,14 @@ public class Level1 : Node2D
 	string lastButtonPressed = "";
 	[Signal]
     public delegate void PlayerMoneyChanged(string newPlayerMoney);
-	PackedScene enemy = GD.Load<PackedScene>("res://Scenes/EnemyPathing.tscn");
+	PackedScene enemyPathing = GD.Load<PackedScene>("res://Scenes/EnemyPathing.tscn");
+	PackedScene enemy = GD.Load<PackedScene>("res://Scenes/Enemy.tscn");
+	PackedScene enemy2 = GD.Load<PackedScene>("res://Scenes/Enemy2.tscn");
+	PackedScene enemy3 = GD.Load<PackedScene>("res://Scenes/Enemy3.tscn");
+	PackedScene enemy4 = GD.Load<PackedScene>("res://Scenes/Enemy4.tscn");
+	PackedScene enemyHealthBar = GD.Load<PackedScene>("res://Scenes/HealthBar.tscn");
+
+	PackedScene spawnedEnemy;
 	PackedScene turret;
 	PackedScene machineTurret = GD.Load<PackedScene>("res://Scenes/MachineTurret.tscn");
 	PackedScene singleCannon = GD.Load<PackedScene>("res://Scenes/SingleCannon.tscn");
@@ -29,7 +36,6 @@ public class Level1 : Node2D
 	Control UI;
 	LineEdit moneyUI;
 	LineEdit healthUI;
-	public Area2D Enemy;
 	Button UIButton1;
 	Button UIButton2;
 	Button UIButton3;
@@ -87,8 +93,14 @@ public class Level1 : Node2D
 		timer = timer + delta;
 		if (timer > spawnTime) 
 		{
-			var newEnemy = enemy.Instance();
-			AddChild(newEnemy);
+			var newEnemyPath = enemyPathing.Instance();
+			var e2 = enemy2.Instance();
+			e2.AddChild(enemyHealthBar.Instance());
+			var enPath = newEnemyPath.GetNode<PathFollow2D>("EnemyLine/EnemyPath");
+			var placeholderEnemy = newEnemyPath.GetNode("EnemyLine/EnemyPath/Enemy");
+			enPath.RemoveChild(placeholderEnemy);
+			enPath.AddChild(e2);
+			AddChild(newEnemyPath);
 			timer = 0;
 		}
 	}

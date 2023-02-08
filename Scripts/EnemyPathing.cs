@@ -11,7 +11,7 @@ public class EnemyPathing : Node2D
 	public override void _Ready()
 	{
 		EnemyPath = GetNode<PathFollow2D>("EnemyLine/EnemyPath");
-		Enemy = GetNode<Area2D>("EnemyLine/EnemyPath/Enemy");
+		Enemy = GetNode<Area2D>("EnemyLine/EnemyPath/Enemy2");
 		Enemy.Connect("EnemyDestroyed", this, "OnEnemyDestroyed");
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
