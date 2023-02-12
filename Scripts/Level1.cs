@@ -319,8 +319,7 @@ public class Level1 : Node2D
 				}
 				break;
 			default:
-				GD.Print("ERROR: Invalid turretType in UpdateMoneySpentSpent");
-				break;
+				throw new Exception("ERROR: Invalid turretType in UpdateMoneySpentSpent");
 		}
 		SetUIButtonStatus();
 	}

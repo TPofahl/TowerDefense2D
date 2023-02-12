@@ -140,8 +140,7 @@ public class Turret : Area2D
 				turretBase.Modulate = Color.Color8(244,3,252,255); //purple
 				break;
 			default:
-				GD.Print("ERROR: invalid turret level assignment to Turret.cs");
-				break;
+				throw new Exception("ERROR: invalid turret level assignment to Turret.cs");
 		}
 		turretDetectionArea.Scale = new Vector2((float)(turretDetectionArea.Scale.x * 0.2 + turretDetectionArea.Scale.x), (float)(turretDetectionArea.Scale.y * 0.2 + turretDetectionArea.Scale.y));
 		turretRangeText = (int)(turretRangeText * 0.2 + turretRangeText);
@@ -166,8 +165,7 @@ public class Turret : Area2D
 				shotScene = rocketScene;
 			break;
 			default:
-			GD.Print("ERROR: invalid turret type selected in Turret script.");
-			break;
+			throw new Exception("ERROR: invalid turret type selected in Turret script.");
 		}
 	}
 }
