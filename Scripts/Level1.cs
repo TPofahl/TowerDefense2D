@@ -17,6 +17,10 @@ public class Level1 : Node2D
 	PackedScene enemy2 = GD.Load<PackedScene>("res://Scenes/Enemy2.tscn");
 	PackedScene enemy3 = GD.Load<PackedScene>("res://Scenes/Enemy3.tscn");
 	PackedScene enemy4 = GD.Load<PackedScene>("res://Scenes/Enemy4.tscn");
+	PackedScene enemyTank = GD.Load<PackedScene>("res://Scenes/Tank.tscn");
+	PackedScene enemyTank2 = GD.Load<PackedScene>("res://Scenes/Tank2.tscn");
+	PackedScene airplane = GD.Load<PackedScene>("res://Scenes/Airplane.tscn");
+	PackedScene airplane2 = GD.Load<PackedScene>("res://Scenes/Airplane2.tscn");
 	PackedScene enemyHealthBar = GD.Load<PackedScene>("res://Scenes/HealthBar.tscn");
 
 	PackedScene spawnedEnemy;
@@ -94,12 +98,13 @@ public class Level1 : Node2D
 		if (timer > spawnTime) 
 		{
 			var newEnemyPath = enemyPathing.Instance();
-			var e2 = enemy2.Instance();
-			e2.AddChild(enemyHealthBar.Instance());
-			var enPath = newEnemyPath.GetNode<PathFollow2D>("EnemyLine/EnemyPath");
+			var newEnemy = SelectEnemySpawnType("Airplane2");
+			var enemyPath = newEnemyPath.GetNode<PathFollow2D>("EnemyLine/EnemyPath");
 			var placeholderEnemy = newEnemyPath.GetNode("EnemyLine/EnemyPath/Enemy");
-			enPath.RemoveChild(placeholderEnemy);
-			enPath.AddChild(e2);
+			newEnemy.AddChild(enemyHealthBar.Instance());
+			enemyPath.RemoveChild(placeholderEnemy);
+			placeholderEnemy.QueueFree();
+			enemyPath.AddChild(newEnemy);
 			AddChild(newEnemyPath);
 			timer = 0;
 		}
@@ -326,4 +331,55 @@ public class Level1 : Node2D
 		EmitSignal(nameof(PlayerMoneyChanged), moneyUI.Text);
 		SetUIButtonStatus();
     }
+
+	private Node SelectEnemySpawnType(string enemySelection)
+	{
+		Node result;
+		switch (enemySelection)
+		{
+			case "Enemy":
+			{
+				result = enemy.Instance();
+				break;
+			}
+			case "Enemy2":
+			{
+				result = enemy2.Instance();
+				break;
+			}
+			case "Enemy3":
+			{
+				result = enemy3.Instance();
+				break;
+			}
+			case "Enemy4":
+			{
+				result = enemy4.Instance();
+				break;
+			} 
+			case "Tank":
+			{
+				result = enemyTank.Instance();
+				break;
+			}
+			case "Tank2":
+			{
+				result = enemyTank2.Instance();
+				break;
+			}
+			case "Airplane":
+			{
+				result = airplane.Instance();
+				break;
+			}
+			case "Airplane2":
+			{
+				result = airplane2.Instance();
+				break;
+			}
+			default:
+			throw new Exception("Invalid enemy type selected");
+		}
+		return result;
+	}
 }

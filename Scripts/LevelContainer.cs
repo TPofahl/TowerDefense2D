@@ -22,5 +22,10 @@ public class LevelContainer : Node2D
             levelTree.Paused = !levelTree.Paused;
             pauseBackground.Visible = !pauseBackground.Visible;
         }
+
+        if (Input.IsActionJustPressed("PrintStrayNodes"))
+        {
+            PrintStrayNodes();
+        }
     }
 }
