@@ -98,7 +98,7 @@ public class Level1 : Node2D
 		if (timer > spawnTime) 
 		{
 			var newEnemyPath = enemyPathing.Instance();
-			var newEnemy = SelectEnemySpawnType("Airplane2");
+			var newEnemy = SelectEnemySpawnType("Tank");
 			var enemyPath = newEnemyPath.GetNode<PathFollow2D>("EnemyLine/EnemyPath");
 			var placeholderEnemy = newEnemyPath.GetNode("EnemyLine/EnemyPath/Enemy");
 			newEnemy.AddChild(enemyHealthBar.Instance());
