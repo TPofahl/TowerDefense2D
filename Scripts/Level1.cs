@@ -3,11 +3,16 @@ using System;
 
 public class Level1 : Node2D
 {
-	[Export]
-	public float spawnTime = 2;
-	[Export]
+	public float enemySpawnTime = 4;
+	public float tankSpawnTime = 5;
+	public float airplaneSpawnTime = 10;
+	public int enemiesSpawned = 1;
+	public int tanksSpawned = 1;
+	public int airplanesSpawned = 1;
 	public int money = 500;
-	float timer = 0;
+	public float enemyTimer = 0;
+	public float tankTimer = 0;
+	public float airplaneTimer = 0;
 	private bool buttonToggled = false;
 	string lastButtonPressed = "";
 	[Signal]
@@ -44,8 +49,9 @@ public class Level1 : Node2D
 	Button UIButton2;
 	Button UIButton3;
 	Button UIButton4;
-
-
+	Timer enemySpawnTimer;
+	Timer tankSpawnTimer;
+	Timer airplaneSpawnTimer;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -64,12 +70,18 @@ public class Level1 : Node2D
 		moneyUI.Text = money.ToString();
 		SetUIButtonStatus();
 		UI.Connect("TurretUIButtonToggled", this, "OnTurretUIButtonToggled");
+		enemySpawnTimer = GetNode<Timer>("SpawnTimers/EnemySpawnTimer");
+		tankSpawnTimer = GetNode<Timer>("SpawnTimers/TankSpawnTimer");
+		airplaneSpawnTimer = GetNode<Timer>("SpawnTimers/AirplaneSpawnTimer");
+		enemySpawnTimer.Stop();
+		tankSpawnTimer.Stop();
+		airplaneSpawnTimer.Stop();
 	}
 
   	// Called every frame. 'delta' is the elapsed time since the previous frame.
   	public override void _Process(float delta) 
 	{
-		SpawnEnemy(delta);
+		EnemySpawner(delta);
 		mouse.GlobalPosition = GetGlobalMousePosition();
 		var targets = mouse.GetOverlappingAreas();
 		if (targets.Count == 0 && turret != null)
@@ -92,24 +104,79 @@ public class Level1 : Node2D
 		}
 	}
 
-	private void SpawnEnemy (float delta)
+	private void EnemySpawner(float delta)
 	{
-		timer = timer + delta;
-		if (timer > spawnTime) 
+		enemyTimer += delta;
+		tankTimer += delta;
+		airplaneTimer += delta;
+		if (enemyTimer > enemySpawnTime) 
 		{
-			var newEnemyPath = enemyPathing.Instance();
-			var newEnemy = SelectEnemySpawnType("Tank");
-			var enemyPath = newEnemyPath.GetNode<PathFollow2D>("EnemyLine/EnemyPath");
-			var placeholderEnemy = newEnemyPath.GetNode("EnemyLine/EnemyPath/Enemy");
-			newEnemy.AddChild(enemyHealthBar.Instance());
-			enemyPath.RemoveChild(placeholderEnemy);
-			placeholderEnemy.QueueFree();
-			enemyPath.AddChild(newEnemy);
-			AddChild(newEnemyPath);
-			timer = 0;
+			enemySpawnTimer.Start();
+			enemyTimer = 0;
+		}
+		if (tankTimer > tankSpawnTime) 
+		{
+			tankSpawnTimer.Start();
+			tankTimer = 0;
+		}
+		if (airplaneTimer > airplaneSpawnTime) 
+		{
+			airplaneSpawnTimer.Start();
+			airplaneTimer = 0;
 		}
 	}
 
+	private void SpawnEnemy(string enemyToSpawn)
+	{
+		var newEnemyPath = enemyPathing.Instance();
+		var newEnemy = SelectEnemySpawnType(enemyToSpawn);
+		var enemyPath = newEnemyPath.GetNode<PathFollow2D>("EnemyLine/EnemyPath");
+		var placeholderEnemy = newEnemyPath.GetNode("EnemyLine/EnemyPath/Enemy");
+		newEnemy.AddChild(enemyHealthBar.Instance());
+		enemyPath.RemoveChild(placeholderEnemy);
+		placeholderEnemy.QueueFree();
+		enemyPath.AddChild(newEnemy);
+		AddChild(newEnemyPath);
+	}
+
+	private void OnEnemySpawnTimerTimeout()
+	{
+		if (enemiesSpawned >= 3)
+		{
+			enemySpawnTimer.Stop();
+			enemiesSpawned = 0;
+		}
+		{
+			SpawnEnemy("Enemy");
+			enemiesSpawned++;
+		}
+	}
+
+	private void OnTankSpawnTimerTimeout()
+	{
+		if (tanksSpawned >= 1)
+		{
+			tankSpawnTimer.Stop();
+			tanksSpawned = 0;
+		}
+		{
+			SpawnEnemy("Tank");
+			tanksSpawned++;
+		}
+	}
+
+	private void OnAirplaneSpawnTimerTimeout()
+	{
+		if (airplanesSpawned >= 1)
+		{
+			airplaneSpawnTimer.Stop();
+			airplanesSpawned = 0;
+		}
+		{
+			SpawnEnemy("Airplane");
+			airplanesSpawned++;
+		}
+	}
 	public void OnLevel1ChildExitingTree(object body)
 	{
 		Node target = (Node)body;

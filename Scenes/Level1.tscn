@@ -997,4 +997,16 @@ __meta__ = {
 margin_left = 832.0
 margin_right = 832.0
 
+[node name="SpawnTimers" type="Node2D" parent="."]
+
+[node name="EnemySpawnTimer" type="Timer" parent="SpawnTimers"]
+wait_time = 0.8
+
+[node name="TankSpawnTimer" type="Timer" parent="SpawnTimers"]
+
+[node name="AirplaneSpawnTimer" type="Timer" parent="SpawnTimers"]
+
 [connection signal="child_exiting_tree" from="." to="." method="OnLevel1ChildExitingTree"]
+[connection signal="timeout" from="SpawnTimers/EnemySpawnTimer" to="." method="OnEnemySpawnTimerTimeout"]
+[connection signal="timeout" from="SpawnTimers/TankSpawnTimer" to="." method="OnTankSpawnTimerTimeout"]
+[connection signal="timeout" from="SpawnTimers/AirplaneSpawnTimer" to="." method="OnAirplaneSpawnTimerTimeout"]
