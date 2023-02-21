@@ -13,11 +13,11 @@ public class Level1 : Node2D
 	public float enemyTimer = 0;
 	public float tankTimer = 0;
 	public float airplaneTimer = 0;
-	private bool buttonToggled = false;
 	string lastButtonPressed = "";
 	[Signal]
     public delegate void PlayerMoneyChanged(string newPlayerMoney);
 	PackedScene enemyPathing = GD.Load<PackedScene>("res://Scenes/EnemyPathing.tscn");
+	PackedScene airplanePathing = GD.Load<PackedScene>("res://Scenes/AirplanePathing.tscn");
 	PackedScene enemy = GD.Load<PackedScene>("res://Scenes/Enemy.tscn");
 	PackedScene enemy2 = GD.Load<PackedScene>("res://Scenes/Enemy2.tscn");
 	PackedScene enemy3 = GD.Load<PackedScene>("res://Scenes/Enemy3.tscn");
@@ -27,8 +27,6 @@ public class Level1 : Node2D
 	PackedScene airplane = GD.Load<PackedScene>("res://Scenes/Airplane.tscn");
 	PackedScene airplane2 = GD.Load<PackedScene>("res://Scenes/Airplane2.tscn");
 	PackedScene enemyHealthBar = GD.Load<PackedScene>("res://Scenes/HealthBar.tscn");
-
-	PackedScene spawnedEnemy;
 	PackedScene turret;
 	PackedScene machineTurret = GD.Load<PackedScene>("res://Scenes/MachineTurret.tscn");
 	PackedScene singleCannon = GD.Load<PackedScene>("res://Scenes/SingleCannon.tscn");
@@ -130,8 +128,17 @@ public class Level1 : Node2D
 	{
 		var newEnemyPath = enemyPathing.Instance();
 		var newEnemy = SelectEnemySpawnType(enemyToSpawn);
+		if (enemyToSpawn == "Airplane" || enemyToSpawn == "Airplane2")
+		{
+			var placeholderPath = newEnemyPath.GetNode<Path2D>("EnemyLine");
+			newEnemyPath.RemoveChild(placeholderPath);
+			placeholderPath.QueueFree();
+			newEnemyPath.AddChild(airplanePathing.Instance());
+		}
 		var enemyPath = newEnemyPath.GetNode<PathFollow2D>("EnemyLine/EnemyPath");
 		var placeholderEnemy = newEnemyPath.GetNode("EnemyLine/EnemyPath/Enemy");
+		newEnemyPath.Connect("OnEnemyFinishingPath", this, "EnemyFinishedPath");
+		newEnemyPath.Connect("OnTurretDestroyedEnemy", this, "TurretDestroytedEnemy");
 		newEnemy.AddChild(enemyHealthBar.Instance());
 		enemyPath.RemoveChild(placeholderEnemy);
 		placeholderEnemy.QueueFree();
@@ -182,25 +189,23 @@ public class Level1 : Node2D
 		Node target = (Node)body;
 		if (target.IsInGroup("EnemyPathingGroup"))
 		{
-			PathFollow2D ePath = target.GetNode<PathFollow2D>("EnemyLine/EnemyPath");
-			float endOfPath = ePath.Offset;
-			// 4923 is the total distance the enemies travel along their set path. This can be found under the EnemyPathing.tscn > EnemyPath > 
-			// and in the inspector, Unit Offset.
- 			if (endOfPath >= 4923)
-			{
-				var currentHealth = healthUI.Text;
-				var newHealth = Convert.ToInt32(currentHealth);
-				healthUI.Text = (newHealth -= 5 ).ToString();
-			}
-			else 
-			{
-				var currentMoney = moneyUI.Text;
-				var newMoney = Convert.ToInt32(currentMoney);
-				moneyUI.Text = ( newMoney += 50 ).ToString();
-				EmitSignal(nameof(PlayerMoneyChanged), moneyUI.Text);
-				SetUIButtonStatus();
-			}
 		}
+	}
+
+	private void EnemyFinishedPath()
+	{
+		var currentHealth = healthUI.Text;
+		var newHealth = Convert.ToInt32(currentHealth);
+		healthUI.Text = (newHealth -= 5 ).ToString();
+	}
+
+	private void TurretDestroytedEnemy()
+	{
+		var currentMoney = moneyUI.Text;
+		var newMoney = Convert.ToInt32(currentMoney);
+		moneyUI.Text = ( newMoney += 50 ).ToString();
+		EmitSignal(nameof(PlayerMoneyChanged), moneyUI.Text);
+		SetUIButtonStatus();
 	}
 
 	private void SetUIButtonStatus()

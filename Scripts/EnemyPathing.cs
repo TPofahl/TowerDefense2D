@@ -7,6 +7,10 @@ public class EnemyPathing : Node2D
 	public int EnemySpeed = 100; //80
 	public PathFollow2D EnemyPath;
 	public Area2D Enemy;
+	[Signal]
+	public delegate void OnEnemyFinishingPath();
+	[Signal]
+	public delegate void OnTurretDestroyedEnemy();
 
 	public override void _Ready()
 	{
@@ -20,6 +24,7 @@ public class EnemyPathing : Node2D
 		EnemyPath.Offset = EnemyPath.Offset + EnemySpeed * delta;
 		if (EnemyPath.UnitOffset == 1) 
 		{
+			EmitSignal(nameof(OnEnemyFinishingPath));
 			QueueFree();
 			EnemyPath.Offset++;
 		}
@@ -27,6 +32,7 @@ public class EnemyPathing : Node2D
 	
 	public void OnEnemyDestroyed()
 	{
+		EmitSignal(nameof(OnTurretDestroyedEnemy));
 		Enemy.Disconnect("EnemyDestroyed", this, "OnEnemyDestroyed");
 		QueueFree();
 	}
