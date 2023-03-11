@@ -33,6 +33,7 @@ public class Main : Node2D
         BlackBarPath8 = GetNode<PathFollow2D>("SceneTransition/BlackBarPath8/PathFollow2D");
         BlackBarPath9 = GetNode<PathFollow2D>("SceneTransition/BlackBarPath9/PathFollow2D");
         MainMenuNode.Connect("StartButtonPressed", this, "MainMenuStartButtonPressed");
+        MainMenuNode.Connect("ExitButtonPressed", this, "MainMenuExitButtonPressed");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -58,10 +59,6 @@ public class Main : Node2D
         }
     }
 
-    private void MainMenuStartButtonPressed()
-    {
-        BlackBarsMoving = true;
-    }
 
     private void MoveSceneTransitionBlackBars(float delta)
     {
@@ -71,5 +68,14 @@ public class Main : Node2D
     private void ResetSceneTransitionBlackBars()
     {
         BlackBarPath1.Offset = BlackBarPath2.Offset = BlackBarPath3.Offset = BlackBarPath4.Offset = BlackBarPath5.Offset = BlackBarPath6.Offset = BlackBarPath7.Offset = BlackBarPath8.Offset = BlackBarPath9.Offset = 0;
+    }
+    private void MainMenuStartButtonPressed()
+    {
+        BlackBarsMoving = true;
+    }
+
+    private void MainMenuExitButtonPressed()
+    {
+        GetTree().Quit();
     }
 }

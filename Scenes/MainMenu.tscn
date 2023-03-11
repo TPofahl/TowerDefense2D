@@ -56,6 +56,13 @@ margin_top = -192.0
 margin_right = 320.0
 margin_bottom = 320.0
 
+[node name="ColorRect2" type="ColorRect" parent="MenuControls"]
+modulate = Color( 0.839216, 0.827451, 0.827451, 0.686275 )
+margin_left = -32.0
+margin_top = 448.0
+margin_right = 160.0
+margin_bottom = 576.0
+
 [node name="Label" type="Label" parent="MenuControls"]
 margin_left = -176.0
 margin_top = -168.0
@@ -71,4 +78,12 @@ margin_right = 192.0
 margin_bottom = 128.0
 text = "Start"
 
+[node name="ExitButton" type="Button" parent="MenuControls"]
+margin_top = 480.0
+margin_right = 128.0
+margin_bottom = 544.0
+text = "Quit"
+
 [connection signal="pressed" from="MenuControls/Button" to="." method="OnMainMenuStartButtonPressed"]
+[connection signal="pressed" from="MenuControls/ExitButton" to="." method="OnMainMenuExitButtonPressed"]
+[connection signal="pressed" from="MenuControls/ExitButton" to="." method="OnMainMenuStartButtonPressed"]
